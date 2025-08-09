@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Props vs State in React</title>
+    <style>
+      body { 
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji"; 
+        padding: 32px; 
+        background: #f8f9fa;
+      }
+      .container { max-width: 800px; margin: 0 auto; }
+      .card { 
+        border: 1px solid #ddd; 
+        border-radius: 12px; 
+        padding: 24px; 
+        margin: 16px 0;
+        background: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      .props-card { border-left: 4px solid #007bff; }
+      .state-card { border-left: 4px solid #28a745; }
+      button { 
+        padding: 8px 16px; 
+        border-radius: 8px; 
+        border: 1px solid #ccc; 
+        cursor: pointer; 
+        margin: 4px;
+        background: #fff;
+      }
+      button:hover { background: #f6f6f6; }
+      .highlight { background: #fff3cd; padding: 2px 4px; border-radius: 4px; }
+      .code { 
+        background: #f8f9fa; 
+        padding: 8px 12px; 
+        border-radius: 4px; 
+        font-family: monospace;
+        border: 1px solid #e9ecef;
+      }
+      .comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      @media (max-width: 768px) { .comparison { grid-template-columns: 1fr; } }
+    </style>
+    <!-- React 18 + ReactDOM via CDN (UMD) -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Babel Standalone to allow JSX directly in the browser -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Props vs State in React</h1>
+      <p>Understanding the key differences between props (immutable) and state (mutable)</p>
+      
+      <div id="root"></div>
+    </div>
+
+    <script type="text/babel">
+      const { useState } = React;
+
+      // Parent component that demonstrates props
+      function ParentComponent() {
+        const [parentCount, setParentCount] = useState(0);
+        const [parentName, setParentName] = useState("John");
+
+        return (
+          <div className="card">
+            <h3>Parent Component (Manages State)</h3>
+            <div className="code">
+              const [parentCount, setParentCount] = useState(0);
+            </div>
+            <p>Parent's own state: <span className="highlight">{parentCount}</span></p>
+            <button onClick={() => setParentCount(parentCount + 1)}>
+              Increment Parent Count
+            </button>
+            <button onClick={() => setParentName(parentName === "John" ? "Jane" : "John")}>
+              Change Name to {parentName === "John" ? "Jane" : "John"}
+            </button>
+            
+            <hr style={{ margin: "16px 0" }} />
+            
+            {/* Child receives props from parent */}
+            <ChildComponent 
+              count={parentCount} 
+              name={parentName}
+              onNameChange={setParentName}
+            />
+          </div>
+        );
+      }
+
+      // Child component that receives props
+      function ChildComponent({ count, name, onNameChange }) {
+        const [childCount, setChildCount] = useState(0);
+
+        return (
+          <div className="card props-card">
+            <h4>Child Component (Receives Props)</h4>
+            <div className="code">
+              function ChildComponent({ count, name, onNameChange })
+            </div>
+            
+            <div style={{ margin: "16px 0" }}>
+              <h5>Props (Immutable - from parent):</h5>
+              <p>• Count from parent: <span className="highlight">{count}</span></p>
+              <p>• Name from parent: <span className="highlight">{name}</span></p>
+              <p><em>Props cannot be changed by the child component!</em></p>
+            </div>
+
+            <div style={{ margin: "16px 0" }}>
+              <h5>State (Mutable - managed internally):</h5>
+              <p>• Child's own count: <span className="highlight">{childCount}</span></p>
+              <button onClick={() => setChildCount(childCount + 1)}>
+                Increment Child Count
+              </button>
+              <button onClick={() => setChildCount(0)}>
+                Reset Child Count
+              </button>
+            </div>
+
+            <div style={{ margin: "16px 0" }}>
+              <h5>Communication with Parent:</h5>
+              <p>Child can call parent's function to change parent's state:</p>
+              <button onClick={() => onNameChange("Alice")}>
+                Change Parent Name to Alice
+              </button>
+            </div>
+          </div>
+        );
+      }
+
+      // Example showing props vs state behavior
+      function PropsVsStateExample() {
+        const [exampleCount, setExampleCount] = useState(0);
+
+        return (
+          <div className="card">
+            <h3>Key Differences Summary</h3>
+            
+            <div className="comparison">
+              <div>
+                <h4>Props (Immutable)</h4>
+                <ul>
+                  <li>Passed from parent to child</li>
+                  <li>Cannot be modified by child</li>
+                  <li>Trigger re-render when changed</li>
+                  <li>Used for configuration</li>
+                </ul>
+                <div className="code">
+                  // Child receives these
+                  &lt;Child name="John" age={25} /&gt;
+                </div>
+              </div>
+              
+              <div>
+                <h4>State (Mutable)</h4>
+                <ul>
+                  <li>Managed internally by component</li>
+                  <li>Can be modified using setter</li>
+                  <li>Triggers re-render when changed</li>
+                  <li>Used for dynamic data</li>
+                </ul>
+                <div className="code">
+                  // Component manages this
+                  const [count, setCount] = useState(0);
+                </div>
+              </div>
+            </div>
+
+            <div style={{ marginTop: "16px" }}>
+              <h4>Current Example State:</h4>
+              <p>Example count: <span className="highlight">{exampleCount}</span></p>
+              <button onClick={() => setExampleCount(exampleCount + 1)}>
+                Increment Example
+              </button>
+            </div>
+          </div>
+        );
+      }
+
+      // Main App component
+      function App() {
+        return (
+          <div>
+            <PropsVsStateExample />
+            <ParentComponent />
+          </div>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById('root'));
+      root.render(<App />);
+    </script>
+  </body>
+</html>
