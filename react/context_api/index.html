@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Context Example (React useContext)</title>
+    <style>
+      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans; padding: 32px; }
+      .card { border: 1px solid #ddd; border-radius: 12px; padding: 24px; max-width: 420px; margin-bottom: 12px; }
+      button { padding: 8px 12px; border-radius: 8px; border: 1px solid #ccc; cursor: pointer; }
+      button:hover { background: #f6f6f6; }
+    </style>
+    <!-- React 18 + ReactDOM via CDN (UMD) -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Babel Standalone -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <h1>Context in React: useContext</h1>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const { useState, useContext, createContext } = React;
+
+      // Create context
+      const ThemeContext = createContext();
+
+      function ThemeProvider({ children }) {
+        const [theme, setTheme] = useState("light");
+
+        const toggleTheme = () => {
+          setTheme((prev) => (prev === "light" ? "dark" : "light"));
+        };
+
+        return (
+          <ThemeContext.Provider value={{ theme, toggleTheme }}>
+            {children}
+          </ThemeContext.Provider>
+        );
+      }
+
+      function ThemedCard() {
+        const { theme, toggleTheme } = useContext(ThemeContext);
+
+        const styles = {
+          background: theme === "light" ? "#fff" : "#333",
+          color: theme === "light" ? "#000" : "#fff"
+        };
+
+        return (
+          <div className="card" style={styles}>
+            <p>Current theme: <strong>{theme}</strong></p>
+            <button onClick={toggleTheme}>Toggle Theme</button>
+          </div>
+        );
+      }
+
+      function App() {
+        return (
+          <ThemeProvider>
+            <ThemedCard />
+            <ThemedCard />
+          </ThemeProvider>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<App />);
+    </script>
+  </body>
+</html>
