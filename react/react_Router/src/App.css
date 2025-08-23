@@ -1,0 +1,77 @@
+/* Reset and fonts */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f0f2f5;
+}
+
+/* Fixed top menu */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #4f46e5;
+  padding: 1rem 2rem;
+  display: flex;
+  gap: 1rem;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+nav a:hover {
+  background-color: rgba(255,255,255,0.2);
+}
+
+/* Main content */
+.main-content {
+  padding: 6rem 2rem 2rem 2rem; /* top space for fixed menu */
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+/* Headings */
+h2 {
+  color: #333;
+  margin-top: 0;
+}
+
+/* Dashboard internal nav */
+.dashboard-nav {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.dashboard-nav a {
+  color: #4f46e5;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.dashboard-nav a:hover {
+  background-color: #e0e7ff;
+}
+
+.dashboard-section {
+  padding: 1rem;
+  background-color: #f9fafb;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  margin-bottom: 1rem;
+}
