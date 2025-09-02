@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>React Error Boundary (Babel)</title>
+
+  <!-- React e ReactDOM -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+  <!-- Babel -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    h1 { color: darkblue; }
+    h2 { color: red; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+
+    class ErrorBoundary extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = { hasError: false };
+      }
+
+      static getDerivedStateFromError(error) {
+        return { hasError: true };
+      }
+
+      componentDidCatch(error, info) {
+        console.error("Caught by ErrorBoundary:", error, info);
+      }
+
+      render() {
+        if (this.state.hasError) {
+          return <h2>⚠️ Something went wrong. Please try again later.</h2>;
+        }
+        return this.props.children;
+      }
+    }
+
+    function BuggyComponent() {
+      throw new Error("💥 Crash!"); // força um erro
+      return <p>You will never see this text</p>;
+    }
+
+    function App() {
+      return (
+        <ErrorBoundary>
+          <h1>App with Error Boundary</h1>
+          <BuggyComponent />
+        </ErrorBoundary>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+
+  </script>
+</body>
+</html>
