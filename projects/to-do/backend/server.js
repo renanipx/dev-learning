@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
+const { authenticateToken } = require('./middleware/auth');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -21,7 +23,8 @@ mongoose.connect(MONGODB_URI)
 const todoRoutes = require('./routes/todos');
 
 // Rotas
-app.use('/api/todos', todoRoutes);
+app.use('/api', authRoutes);
+app.use('/api/todos', authenticateToken, todoRoutes);
 
 // Rota básica para teste
 app.get('/', (req, res) => {
