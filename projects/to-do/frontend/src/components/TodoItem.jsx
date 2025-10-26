@@ -140,15 +140,19 @@ const TodoItem = ({ todo, onToggle, onUpdate, onDelete }) => {
         <button 
           onClick={() => setIsEditing(true)}
           className="btn"
-          style={{ padding: '6px 12px', background: '#3182ce', color: 'white' }}
+          style={{ padding: '6px 12px', background: '#3182ce', color: 'white', display: 'flex', alignItems: 'center', gap: '6px' }}
         >
+          <span className="material-icons" style={{ fontSize: '18px' }}>edit</span>
           Editar
         </button>
         <button 
-          onClick={() => onDelete(todo._id)}
+          onClick={() => {
+            if(window.confirm('Tem certeza que deseja excluir esta tarefa?')) onDelete(todo._id);
+          }}
           className="btn btn-danger"
-          style={{ padding: '6px 12px' }}
+          style={{ padding: '6px 12px', display: 'flex', alignItems: 'center', gap: '6px' }}
         >
+          <span className="material-icons" style={{ fontSize: '18px' }}>delete</span>
           Excluir
         </button>
       </div>

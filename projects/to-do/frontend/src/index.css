@@ -33,6 +33,33 @@ h1 {
   margin-bottom: 24px;
   width: 100%;
   max-width: 100%;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 700px) {
+  .form > div, .form > button {
+    flex: 1 1 100%;
+    min-width: 200px;
+  }
+  .form {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
 }
 
 .form input,
