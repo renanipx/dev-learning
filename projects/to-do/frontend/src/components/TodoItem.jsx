@@ -89,7 +89,7 @@ const TodoItem = ({ todo, onToggle, onUpdate, onDelete }) => {
             />
           </div>
         </div>
-        <div style={{ display: 'flex', gap: '8px' }}>
+        <div style={{ display: 'flex', gap: '8px', marginLeft: '1%' }}>
           <button 
             onClick={handleSave}
             className="btn btn-primary"

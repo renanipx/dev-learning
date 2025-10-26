@@ -2,12 +2,49 @@ import axios from 'axios';
 
 const API_BASE_URL = 'http://localhost:5000/api';
 
+// Função para login automático
+export const loginAndGetToken = async () => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/login`, {
+      username: 'admin',
+      password: '123456',
+    });
+    return response.data.token;
+  } catch (error) {
+    console.error('Erro ao fazer login:', error);
+    throw error;
+  }
+};
+
+let jwtToken = null;
+
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
 });
+
+// Interceptor para adicionar o token JWT em todas as requisições
+api.interceptors.request.use(
+  (config) => {
+    if (jwtToken) {
+      config.headers.Authorization = `Bearer ${jwtToken}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+export const setJwtToken = (token) => {
+  jwtToken = token;
+  // Opcional: salvar no localStorage
+  localStorage.setItem('jwtToken', token);
+};
+
+export const getJwtToken = () => {
+  return jwtToken || localStorage.getItem('jwtToken');
+};
 
 export const todoService = {
   // Buscar todas as tarefas

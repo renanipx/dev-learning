@@ -21,7 +21,6 @@ const TodoForm = ({ onSubmit }) => {
         ...formData,
         completed: false
       });
-      
       // Limpar formulário após sucesso
       setFormData({
         title: '',
@@ -43,47 +42,45 @@ const TodoForm = ({ onSubmit }) => {
 
   return (
     <form onSubmit={handleSubmit} className="form">
-      <input
-        type="text"
-        name="title"
-        placeholder="Título da tarefa"
-        value={formData.title}
-        onChange={handleChange}
-        required
-        style={{ flex: 2 }}
-      />
-      
-      <input
-        type="text"
-        name="description"
-        placeholder="Descrição (opcional)"
-        value={formData.description}
-        onChange={handleChange}
-        style={{ flex: 2 }}
-      />
-      
-      <select
-        name="priority"
-        value={formData.priority}
-        onChange={handleChange}
-        style={{ flex: 1 }}
-      >
-        <option value="baixa">Baixa</option>
-        <option value="média">Média</option>
-        <option value="alta">Alta</option>
-      </select>
-      
-      <input
-        type="date"
-        name="dueDate"
-        value={formData.dueDate}
-        onChange={handleChange}
-        style={{ flex: 1 }}
-      />
-      
-      <button type="submit" className="btn btn-primary" style={{ flex: 1 }}>
-        Adicionar
-      </button>
+      <div style={{ display: 'flex', gap: '12px', width: '100%', flexDirection: 'column' }}>
+        <input
+          type="text"
+          name="title"
+          placeholder="Título da tarefa"
+          value={formData.title}
+          onChange={handleChange}
+          required
+          style={{ flex: 2 }}
+        />
+        <input
+          type="text"
+          name="description"
+          placeholder="Descrição (opcional)"
+          value={formData.description}
+          onChange={handleChange}
+          style={{ flex: 2 }}
+        />
+        <select
+          name="priority"
+          value={formData.priority}
+          onChange={handleChange}
+          style={{ flex: 1 }}
+        >
+          <option value="baixa">Baixa</option>
+          <option value="média">Média</option>
+          <option value="alta">Alta</option>
+        </select>
+        <input
+          type="date"
+          name="dueDate"
+          value={formData.dueDate}
+          onChange={handleChange}
+          style={{ flex: 1 }}
+        />
+        <button type="submit" className="btn btn-primary" style={{ flex: 1 }}>
+          Adicionar
+        </button>
+      </div>
     </form>
   );
 };

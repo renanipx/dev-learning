@@ -1,10 +1,26 @@
 import { useState, useEffect } from 'react';
-import { todoService } from '../services/api';
+import { todoService, loginAndGetToken, setJwtToken } from '../services/api';
 
 export const useTodos = () => {
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [authReady, setAuthReady] = useState(false);
+
+  // Autenticação automática ao iniciar
+  useEffect(() => {
+    const authenticate = async () => {
+      try {
+        const token = await loginAndGetToken();
+        setJwtToken(token);
+        setAuthReady(true);
+      } catch (err) {
+        setError('Erro ao autenticar. Verifique o backend.');
+        setAuthReady(false);
+      }
+    };
+    authenticate();
+  }, []);
 
   // Carregar todas as tarefas
   const loadTodos = async () => {
@@ -14,7 +30,11 @@ export const useTodos = () => {
       const todosData = await todoService.getAllTodos();
       setTodos(todosData);
     } catch (err) {
-      setError('Erro ao carregar tarefas');
+      if (err.response && err.response.status === 401) {
+        setError('Não autorizado. Faça login novamente.');
+      } else {
+        setError('Erro ao carregar tarefas');
+      }
       console.error('Erro:', err);
     } finally {
       setLoading(false);
@@ -70,10 +90,12 @@ export const useTodos = () => {
     }
   };
 
-  // Carregar tarefas ao inicializar
+  // Carregar tarefas ao inicializar (após autenticação)
   useEffect(() => {
-    loadTodos();
-  }, []);
+    if (authReady) {
+      loadTodos();
+    }
+  }, [authReady]);
 
   return {
     todos,
