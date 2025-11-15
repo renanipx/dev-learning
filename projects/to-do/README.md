@@ -63,6 +63,7 @@ docker-compose up --build
 - Frontend: `http://localhost:3001`
 
 ## Project Structure
+```
 ├── README.md
 ├── backend/
 │   ├── Dockerfile
@@ -85,6 +86,7 @@ docker-compose up --build
 ├── App.jsx
 ├── hooks/
 └── services/
+```
 
 ## API Endpoints
 - Auth (demo): `POST /api/login` (username: `admin`, password: `123456`)
