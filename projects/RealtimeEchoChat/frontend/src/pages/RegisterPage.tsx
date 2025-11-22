@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { User, Mail, Lock, UserPlus } from 'lucide-react';
@@ -9,6 +10,8 @@ const RegisterPage: React.FC = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
@@ -104,13 +107,22 @@ const RegisterPage: React.FC = () => {
                 </div>
                 <input
                   id="password"
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="input pl-10 w-full"
+                  className="input pl-10 w-full pr-10"
                   placeholder="Create a password"
                   required
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-indigo-500 focus:outline-none"
+                  tabIndex={-1}
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                </button>
               </div>
             </div>
 
@@ -124,13 +136,22 @@ const RegisterPage: React.FC = () => {
                 </div>
                 <input
                   id="confirmPassword"
-                  type="password"
+                  type={showConfirmPassword ? 'text' : 'password'}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="input pl-10 w-full"
+                  className="input pl-10 w-full pr-10"
                   placeholder="Confirm your password"
                   required
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword((prev) => !prev)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-indigo-500 focus:outline-none"
+                  tabIndex={-1}
+                  aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                </button>
               </div>
             </div>
 

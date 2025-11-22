@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Mail, Lock, LogIn, UserPlus } from 'lucide-react';
+import { Mail, Lock, LogIn, EyeOff, Eye } from 'lucide-react';
+import logoIcon from '../assets/logoicon.svg';
+
+
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -29,13 +33,9 @@ const LoginPage: React.FC = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 to-primary-100 dark:from-dark-900 dark:to-dark-800">
       <div className="max-w-md w-full mx-4">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
-            Welcome Back
-          </h1>
-          <p className="text-gray-600 dark:text-gray-400">
-            Sign in to continue to Realtime Echo Chat
-          </p>
+
+        <div className="flex flex-col items-center mb-2" style={{ marginLeft: window.innerWidth < 500 ? '-17%' : '-15%' }} >
+          <img src={logoIcon} alt="Logo RealTimeEchoChat" className={`mx-auto mb-2 w-full max-w-[380px] ${window.innerWidth < 375 ? 'h-12' : 'h-16'}`} style={{ filter: 'drop-shadow(0 2px 6px rgba(79,70,229,0.15))' }} />
         </div>
 
         <div className="card animate-fade-in">
@@ -76,13 +76,22 @@ const LoginPage: React.FC = () => {
                 </div>
                 <input
                   id="password"
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="input pl-10 w-full"
+                  className="input pl-10 w-full pr-10"
                   placeholder="Enter your password"
                   required
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-indigo-500 focus:outline-none"
+                  tabIndex={-1}
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                </button>
               </div>
             </div>
 

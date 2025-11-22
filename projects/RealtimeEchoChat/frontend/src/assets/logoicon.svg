@@ -1,0 +1,31 @@
+<svg width="100%" height="100" viewBox="0 0 500 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Logo RealTimeEchoChat">
+  <defs>
+    <linearGradient id="chatGradient" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6366F1"/>
+      <stop offset="1" stop-color="#4F46E5"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#4F46E5" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <ellipse cx="70" cy="50" rx="36" ry="26" fill="url(#chatGradient)"/>
+    <ellipse cx="70" cy="50" rx="28" ry="18" fill="white"/>
+    <circle cx="58" cy="50" r="4" fill="#4F46E5">
+      <animate attributeName="opacity" values="0.3;1;0.3" dur="1.2s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="70" cy="50" r="4" fill="#4F46E5">
+      <animate attributeName="opacity" values="0.3;1;0.3" dur="1.2s" begin="0.2s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="82" cy="50" r="4" fill="#4F46E5">
+      <animate attributeName="opacity" values="0.3;1;0.3" dur="1.2s" begin="0.4s" repeatCount="indefinite" />
+    </circle>
+    <path d="M70 74 L66 66 H74 L70 74 Z" fill="#4F46E5"/>
+  </g>
+  <text x="130" y="65" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="48" font-weight="bold" fill="#222">
+    RealTimeEchoChat
+  </text>
+  <text x="130" y="90" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="22" fill="#374151">
+    Chat in real time, without limits!
+  </text>
+</svg>
