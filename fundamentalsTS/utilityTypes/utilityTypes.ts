@@ -74,7 +74,10 @@ updateUser(user.id, { email: "new@mail.com" });
 showUserBasicInfo({ name: user.name, email: user.email });
 
 // Remove password
-const safeUser = sanitizeUser(user);
+const 
+,
+3
+ = sanitizeUser(user);
 
 // Make user readonly
 const frozenUser = freezeUser(safeUser);
