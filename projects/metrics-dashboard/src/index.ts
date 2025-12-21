@@ -1,6 +1,6 @@
-import { fetchPosts } from "./api.js"
-import { calculateMetrics } from "./metrics.js"
-import { generateInsights } from "./insights.js"
+import { fetchPosts } from "./api"
+import { calculateMetrics } from "./metrics"
+import { generateInsights } from "./insights"
 
 async function main() {
   console.log("📊 Metrics Dashboard\n")
