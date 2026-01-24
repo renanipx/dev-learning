@@ -20,7 +20,7 @@ export function Login({ onSubmit }: LoginProps) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>Login</h2>
+      <h2>Sign in</h2>
 
       <input
         type="email"

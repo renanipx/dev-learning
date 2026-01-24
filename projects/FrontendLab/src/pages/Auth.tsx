@@ -14,27 +14,29 @@ export function Auth({ onAuthSuccess }: AuthProps) {
 
   return (
     <div className="auth-container">
-      {mode === "login" ? (
-        <>
-          <Login onSubmit={onAuthSuccess} />
-          <p>
-            Don’t have an account?{" "}
-            <button onClick={() => setMode("register")}>
-              Register
-            </button>
-          </p>
-        </>
-      ) : (
-        <>
-          <Register onSubmit={onAuthSuccess} />
-          <p>
-            Already have an account?{" "}
-            <button onClick={() => setMode("login")}>
-              Login
-            </button>
-          </p>
-        </>
-      )}
+      <div className="auth-card">
+        {mode === "login" ? (
+          <>
+            <Login onSubmit={onAuthSuccess} />
+            <div className="auth-footer">
+              Don’t have an account?
+              <button onClick={() => setMode("register")}>
+                Register
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
+            <Register onSubmit={onAuthSuccess} />
+            <div className="auth-footer">
+              Already have an account?
+              <button onClick={() => setMode("login")}>
+                Login
+              </button>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   )
 }
