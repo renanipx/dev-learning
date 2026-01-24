@@ -1,9 +1,10 @@
 import { Layout } from "./components/Layout/Layout"
+import { Auth } from "./pages/Auth"
 
 function App() {
   return (
     <Layout>
-      <h2>Hello React 🚀</h2>
+      <Auth />
     </Layout>
   )
 }
