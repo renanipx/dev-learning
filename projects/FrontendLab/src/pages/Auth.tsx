@@ -1,29 +1,22 @@
 import { useState } from "react"
 import { Login } from "./Login"
 import { Register } from "./Register"
+import "../styles/auth.css"
+
+type AuthProps = {
+  onAuthSuccess: () => void
+}
 
 type AuthMode = "login" | "register"
 
-export function Auth() {
+export function Auth({ onAuthSuccess }: AuthProps) {
   const [mode, setMode] = useState<AuthMode>("login")
 
-  function handleLogin(data: { email: string; password: string }) {
-    console.log("Login:", data)
-  }
-
-  function handleRegister(data: {
-    name: string
-    email: string
-    password: string
-  }) {
-    console.log("Register:", data)
-  }
-
   return (
-    <div>
+    <div className="auth-container">
       {mode === "login" ? (
         <>
-          <Login onSubmit={handleLogin} />
+          <Login onSubmit={onAuthSuccess} />
           <p>
             Don’t have an account?{" "}
             <button onClick={() => setMode("register")}>
@@ -33,7 +26,7 @@ export function Auth() {
         </>
       ) : (
         <>
-          <Register onSubmit={handleRegister} />
+          <Register onSubmit={onAuthSuccess} />
           <p>
             Already have an account?{" "}
             <button onClick={() => setMode("login")}>
