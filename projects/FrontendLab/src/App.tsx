@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Layout } from "./components/Layout/Layout"
 import { Auth } from "./pages/Auth"
+import { Users } from "./pages/Users"
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -15,6 +16,7 @@ function App() {
 
   return (
     <Layout>
+      <Users />
       <h2>Dashboard</h2>
     </Layout>
   )
