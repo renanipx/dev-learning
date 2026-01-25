@@ -1,25 +1,33 @@
-import { useState } from "react"
-import { Layout } from "./components/Layout/Layout"
-import { Auth } from "./pages/Auth"
-import { Users } from "./pages/Users"
+import { BrowserRouter, useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { AppRoutes } from "./routes/AppRoutes"
 
-function App() {
+function AppContent() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const navigate = useNavigate()
 
-  function handleLogin() {
+  function handleAuthSuccess() {
     setIsAuthenticated(true)
   }
 
-  if (!isAuthenticated) {
-    return <Auth onAuthSuccess={handleLogin} />
-  }
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/dashboard")
+    }
+  }, [isAuthenticated, navigate])
 
   return (
-    <Layout>
-      <Users />
-      <h2>Dashboard</h2>
-    </Layout>
+    <AppRoutes
+      isAuthenticated={isAuthenticated}
+      onAuthSuccess={handleAuthSuccess}
+    />
   )
 }
 
-export default App
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
+  )
+}

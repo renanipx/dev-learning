@@ -1,6 +1,6 @@
 import { useState } from "react"
-import { Login } from "./Login"
-import { Register } from "./Register"
+import { Login } from "../components/Login/Login"
+import { Register } from "../components/Register/Register"
 import "../styles/auth.css"
 
 type AuthProps = {
