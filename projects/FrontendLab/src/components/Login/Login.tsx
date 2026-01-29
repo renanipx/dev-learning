@@ -1,4 +1,6 @@
 import { useState } from "react"
+import { Input } from "../ui/Input/Input"
+import { Button } from "../ui/Button/Button"
 
 type LoginData = {
   email: string
@@ -13,7 +15,7 @@ export function Login({ onSubmit }: LoginProps) {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
-  function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     onSubmit({ email, password })
   }
@@ -22,21 +24,21 @@ export function Login({ onSubmit }: LoginProps) {
     <form onSubmit={handleSubmit}>
       <h2>Sign in</h2>
 
-      <input
+      <Input
         type="email"
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
         placeholder="Email"
+        onChange={setEmail}
       />
 
-      <input
+      <Input
         type="password"
         value={password}
-        onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
+        onChange={setPassword}
       />
 
-      <button type="submit">Login</button>
+      <Button type="submit">Sign in</Button>
     </form>
   )
 }

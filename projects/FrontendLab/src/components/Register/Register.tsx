@@ -1,4 +1,6 @@
 import { useState } from "react"
+import { Input } from "../ui/Input/Input"
+import { Button } from "../ui/Button/Button"
 
 type RegisterData = {
   name: string
@@ -19,12 +21,11 @@ export function Register({ onSubmit }: RegisterProps) {
 
   const [error, setError] = useState("")
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const { name, value } = e.target
+  function handleChange(name: keyof RegisterData, value: string) {
     setForm((prev) => ({ ...prev, [name]: value }))
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
     if (!form.name || !form.email || !form.password) {
@@ -40,31 +41,29 @@ export function Register({ onSubmit }: RegisterProps) {
     <form onSubmit={handleSubmit}>
       <h2>Register</h2>
 
-      <input
-        name="name"
-        placeholder="Name"
+      <Input
         value={form.name}
-        onChange={handleChange}
+        placeholder="Name"
+        onChange={(value) => handleChange("name", value)}
       />
 
-      <input
-        name="email"
-        placeholder="Email"
+      <Input
+        type="email"
         value={form.email}
-        onChange={handleChange}
+        placeholder="Email"
+        onChange={(value) => handleChange("email", value)}
       />
 
-      <input
-        name="password"
+      <Input
         type="password"
-        placeholder="Password"
         value={form.password}
-        onChange={handleChange}
+        placeholder="Password"
+        onChange={(value) => handleChange("password", value)}
       />
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="form-error">{error}</p>}
 
-      <button type="submit">Create account</button>
+      <Button type="submit">Create account</Button>
     </form>
   )
 }
