@@ -1,23 +1,17 @@
 import { useState } from "react"
 import { Input } from "../ui/Input/Input"
 import { Button } from "../ui/Button/Button"
+import { useAuth } from "../../hooks/useAuth"
 
-type LoginData = {
-  email: string
-  password: string
-}
+export function Login() {
+  const { login } = useAuth()
 
-type LoginProps = {
-  onSubmit: (data: LoginData) => void
-}
-
-export function Login({ onSubmit }: LoginProps) {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    onSubmit({ email, password })
+    login(email, password)
   }
 
   return (
