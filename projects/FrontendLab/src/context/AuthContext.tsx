@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react"
+import { loginService } from "../services/authService"
 
 type User = {
   email: string
@@ -19,22 +20,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [token, setToken] = useState<string | null>(null)
 
-  // 🔁 Session persistence
+  // 🔁 Restore session
   useEffect(() => {
     const storedToken = localStorage.getItem("token")
+
     if (storedToken) {
       setToken(storedToken)
-      setUser({ email: "user@email.com" }) // mock
+      // Optional: Search for real user
+      setUser({ email: "user@email.com" })
     }
   }, [])
 
   async function login(email: string, password: string) {
-    // 🔧 API simulation
-    const fakeToken = "fake-jwt-token"
+    const { token, user } = await loginService(email, password)
 
-    localStorage.setItem("token", fakeToken)
-    setToken(fakeToken)
-    setUser({ email })
+    localStorage.setItem("token", token)
+    setToken(token)
+    setUser(user)
   }
 
   function logout() {
@@ -44,9 +46,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider
-      value={{ user, token, login, logout }}
-    >
+    <AuthContext.Provider value={{ user, token, login, logout }}>
       {children}
     </AuthContext.Provider>
   )
