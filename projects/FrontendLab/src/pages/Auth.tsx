@@ -9,7 +9,7 @@ type AuthMode = "login" | "register"
 
 export function Auth() {
   const [mode, setMode] = useState<AuthMode>("login")
-  const { token, register } = useAuth()
+  const { token } = useAuth()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -23,15 +23,7 @@ export function Auth() {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        {isLogin ? (
-          <Login />
-        ) : (
-          <Register
-            onSubmit={({ name, email, password }) =>
-              register(name, email, password)
-            }
-          />
-        )}
+        {isLogin ? <Login /> : <Register />}
 
         <div className="auth-footer">
           {isLogin ? (
