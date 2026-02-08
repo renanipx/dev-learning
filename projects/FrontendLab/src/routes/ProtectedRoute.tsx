@@ -7,9 +7,9 @@ export function ProtectedRoute({
 }: {
   children: ReactNode
 }) {
-  const { token } = useAuth()
+  const { isAuthenticated } = useAuth()
 
-  if (!token) {
+  if (!isAuthenticated) {
     return <Navigate to="/" replace />
   }
 
