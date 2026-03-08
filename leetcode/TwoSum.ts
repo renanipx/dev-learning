@@ -42,7 +42,4 @@ function twoSum(nums: number[], target: number): number[] {
         map[nums[i]] = i;
         
     }
-
-    return[0,0]
-
 };
